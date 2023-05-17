@@ -1,0 +1,118 @@
+<h1>Quiz Game</h1>
+
+<div id="question">
+
+  <!-- What is circular and flat at once? -->
+
+</div>
+
+<div id="choices">
+
+  <!-- A. Desktop B. Frying pan C. The World -->
+
+</div>
+
+<button id="submit">Submit Answer</button>
+
+<button id="next" style="display: none;">Next Question</button>
+
+const questionElement = document.getElementById('question');
+
+const choicesElement = document.getElementById('choices');
+
+const submitButton = document.getElementById('submit');
+
+const nextButton = document.getElementById('next');
+
+// This could be loaded from an external source
+
+const questions = [
+
+  {
+
+    question: 'What is 2 + 2?',
+
+    choices: ['3', '4', '5', '6'],
+
+    answer: 1
+
+  },
+
+  // More questions...
+
+];
+
+let currentQuestion = 0;
+
+function loadQuestion() {
+
+  const question = questions[currentQuestion];
+
+  questionElement.textContent = question.question;
+
+  choicesElement.innerHTML = '';
+
+  question.choices.forEach((choice, i) => {
+
+    const button = document.createElement('button');
+
+    button.textContent = choice;
+
+    button.addEventListener('click', () => {
+
+      // Store the player's answer and show the submit button
+
+      playerAnswer = i;
+
+      submitButton.style.display = 'block';
+
+    });
+
+    choicesElement.appendChild(button);
+
+  });
+
+}
+
+submitButton.addEventListener('click', () => {
+
+  // Check if the player's answer is correct and show the next button
+
+  if (playerAnswer === questions[currentQuestion].answer) {
+
+    alert('Correct!');
+
+  } else {
+
+    alert('Incorrect.');
+
+  }
+
+  submitButton.style.display = 'none';
+
+  nextButton.style.display = 'block';
+
+});
+
+nextButton.addEventListener('click', () => {
+
+  // Move on to the next question
+
+  currentQuestion++;
+
+  if (currentQuestion < questions.length) {
+
+    loadQuestion();
+
+    nextButton.style.display = 'none';
+
+  } else {
+
+    alert('Quiz complete!');
+
+  }
+
+});
+
+loadQuestion();
+
